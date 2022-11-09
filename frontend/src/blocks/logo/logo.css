@@ -1,0 +1,19 @@
+.logo {
+  position: relative;
+  background-image: url(../../images/logo_color_white.svg);
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 100%;
+  max-width: 142px;
+  height: calc(100vw * (33 / 142));
+  max-height: 33px;
+}
+
+@media screen and (max-width: 1280px) {
+  .logo {
+    width: calc(103.74px + ((100vw - 320px) / (1280 - 320)) * (142 - 103.74));
+    height: calc(24.4px + ((100vw - 320px) / (1280 - 320)) * (33 - 24.4));
+  background-image: url(../../images/logo_color_white.svg);
+
+  }
+}
