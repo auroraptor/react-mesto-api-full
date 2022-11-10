@@ -1,4 +1,4 @@
-function Api({baseUrl, anotherURL, authorization}) {
+function Api({baseUrl, authorization}) {
   this.getResponseData = (res) => {
     return res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`);
   }
@@ -73,7 +73,7 @@ function Api({baseUrl, anotherURL, authorization}) {
   }
 
   this.register = (password, email) => {
-    return fetch(`${anotherURL}/signup`, {
+    return fetch(`${baseUrl}/signup`, {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -85,7 +85,7 @@ function Api({baseUrl, anotherURL, authorization}) {
   }
 
   this.login = (password, email) => {
-    return fetch(`${anotherURL}/signin`, {
+    return fetch(`${baseUrl}/signin`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -96,7 +96,7 @@ function Api({baseUrl, anotherURL, authorization}) {
   }
 
   this.getContent = (jwt) => {
-    return fetch(`${anotherURL}/users/me`, {
+    return fetch(`${baseUrl}/users/me`, {
       method: 'GET',
       headers: {
         "Content-Type": "application/json",
@@ -108,8 +108,9 @@ function Api({baseUrl, anotherURL, authorization}) {
 }
 
 const api = new Api({
-  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-46/',
-  anotherURL: 'https://auth.nomoreparties.co',
+  // baseUrl: 'http://api.auro.nomoredomains.icu/',
+  baseUrl: 'http://localhost:3000/',
+  // baseUrl: 'https://auth.nomoreparties.co',
   authorization: 'b5225d24-020a-49f6-8bcd-ca1813713eea'
 });
 
