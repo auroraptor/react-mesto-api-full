@@ -5,7 +5,7 @@ function Api({baseUrl, authorization}) {
 
   this.getCardList = () => {
     return fetch(`${baseUrl}cards`, {
-      headers: {authorization: authorization}
+      headers: {Cookies: authorization}
     })
     .then((res) => this.getResponseData(res));
   }
@@ -22,9 +22,7 @@ function Api({baseUrl, authorization}) {
   }
 
   this.getUserInfo = () => {
-    return fetch(`${baseUrl}users/me`, {
-      headers: {authorization: authorization}
-    })
+    return fetch(`${baseUrl}users/me`)
     .then((res) =>  this.getResponseData(res));
   }
 
@@ -88,6 +86,7 @@ function Api({baseUrl, authorization}) {
     return fetch(`${baseUrl}/signin`, {
       method: 'POST',
       headers: {
+        'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({ password, email })
@@ -109,9 +108,9 @@ function Api({baseUrl, authorization}) {
 
 const api = new Api({
   // baseUrl: 'http://api.auro.nomoredomains.icu/',
-  baseUrl: 'http://localhost:3000/',
+  baseUrl: 'http://localhost:3000',
   // baseUrl: 'https://auth.nomoreparties.co',
-  authorization: 'b5225d24-020a-49f6-8bcd-ca1813713eea'
+  // authorization: 'b5225d24-020a-49f6-8bcd-ca1813713eea'
 });
 
 export default api;

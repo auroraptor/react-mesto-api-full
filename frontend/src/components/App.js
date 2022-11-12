@@ -76,7 +76,7 @@ function App() {
         localStorage.setItem("jwt", data.token);
         setEmail(email);
         setLoggedIn(true);
-        navigate("/react-mesto-auth/");
+        navigate("/");
       })
       .catch((err) => console.log(err));
   };
@@ -127,7 +127,7 @@ function App() {
   };
 
   useEffect(() => {
-    if (!isInfoTooltipOpen && success) navigate("/react-mesto-auth/sign-in");
+    if (!isInfoTooltipOpen && success) navigate("/signin");
   }, [isInfoTooltipOpen]);
 
   const handleUpdateUser = (data) => {
@@ -167,11 +167,11 @@ function App() {
     <Routes>
       <Route element={<ProtectedRoute />}>
         <Route
-          path="/react-mesto-auth/"
+          path="/"
           element={
             <CurrentUserContext.Provider value={currentUser}>
               <Header
-                link="/react-mesto-auth/sign-in"
+                link="/signin"
                 text="Выйти"
                 email={email}
                 onLogOut={handleLogOut}
@@ -234,9 +234,9 @@ function App() {
             closeInfoTooltip={setInfoTooltipOpen}
           />
         }
-        path="/react-mesto-auth/sign-up"
+        path="/signup"
       />
-      <Route element={<Login onLogin={handleLogin} />} path="/react-mesto-auth/sign-in" />
+      <Route element={<Login onLogin={handleLogin} />} path="/signin" />
       <Route element={<NotFound />} path="/*" />
       {/* TODO */}
     </Routes>

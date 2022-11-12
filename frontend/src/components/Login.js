@@ -15,7 +15,7 @@ function Login(props) {
 
   return (
     <div>
-      <Header link="/react-mesto-auth/sign-up" text="Регистрация" />
+      <Header link="/signup" text="Регистрация" />
       <form
         className={`form_theme_white login-form`}
         name="login"
