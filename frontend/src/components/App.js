@@ -49,6 +49,7 @@ function App() {
   useEffect(() => {
     if (!loggedIn) return;
 
+
     Promise.all([api.getUserInfo(), api.getCardList()])
     .then(([user, cards]) => {
       setCurrentUser(user);
@@ -57,23 +58,21 @@ function App() {
     .catch(e => console.log(e))
   }, [loggedIn]);
 
-  useEffect(() => {
-    const jwt = localStorage.getItem("jwt");
-    if (!jwt) return;
-    api
-      .getContent(jwt)
-      .then((res) => {
-        setEmail(res.data.email);
-        setLoggedIn(true);
-      })
-      .catch((err) => console.log(err));
-  }, []);
+  // useEffect(() => {
+  //   api
+  //     .getContent()
+  //     .then((res) => {
+  //       setEmail(res.data.email);
+  //       setLoggedIn(true);
+  //     })
+  //     .catch((err) => console.log(err));
+  // }, []);
 
   const handleLogin = (email, password) => {
     api
       .login(password, email)
       .then((data) => {
-        localStorage.setItem("jwt", data.token);
+        console.log(data);
         setEmail(email);
         setLoggedIn(true);
         navigate("/");
@@ -94,7 +93,6 @@ function App() {
 
   const handleLogOut = () => {
     setLoggedIn(false);
-    localStorage.removeItem("jwt");
     setCurrentUser({ name: "", about: "", avatar: "" });
   };
 

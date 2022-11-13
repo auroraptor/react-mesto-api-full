@@ -6,6 +6,7 @@ const { HttpStatusCode } = require('../utils/HttpStatusCode');
 const { HTTP401Error } = require('../errors/HTTP401Error');
 const { HTTP409Error } = require('../errors/HTTP409Error');
 const { HTTP404Error } = require('../errors/HTTP404Error');
+const { logNow } = require('../utils/log');
 
 module.exports.createUser = async (req, res, next) => {
   try {
@@ -87,6 +88,7 @@ module.exports.updateAvatar = async (req, res, next) => {
 };
 
 module.exports.login = async (req, res, next) => {
+  logNow('here we are');
   try {
     const { email, password } = req.body;
     const user = await User.findOne({ email }).select('+password');
