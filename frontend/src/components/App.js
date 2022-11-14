@@ -60,7 +60,7 @@ function App() {
 
   useEffect(() => {
     api
-      .getContent()
+      .getUserInfo()
       .then((res) => {
         setEmail(res.email);
         setLoggedIn(true);
@@ -71,8 +71,7 @@ function App() {
   const handleLogin = (email, password) => {
     api
       .login(password, email)
-      .then((data) => {
-        console.log(data);
+      .then(() => {
         setEmail(email);
         setLoggedIn(true);
         navigate("/");
@@ -163,7 +162,7 @@ function App() {
 
   return (
     <Routes>
-      <Route element={<ProtectedRoute />}>
+      <Route element={<ProtectedRoute loggedIn/>}>
         <Route
           path="/"
           element={
