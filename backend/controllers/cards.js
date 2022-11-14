@@ -50,7 +50,7 @@ module.exports.likeCard = async (req, res, next) => {
       next(new HTTP404Error(`Карточка с id ${req.params.cardId} не найдена`));
       return;
     }
-    res.status(HttpStatusCode.OK).send({ message: '<3' });
+    res.status(HttpStatusCode.OK).send(card);
   } catch (error) {
     next(error);
   }
@@ -67,7 +67,7 @@ module.exports.dislikeCard = async (req, res, next) => {
       next(new HTTP404Error(`Карточка с id ${req.params.cardId} не найдена`));
       return;
     }
-    res.status(HttpStatusCode.OK).send({ message: '</3' });
+    res.status(HttpStatusCode.OK).send(card);
   } catch (error) {
     next(error);
   }

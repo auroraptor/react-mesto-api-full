@@ -24,7 +24,7 @@ function Main(props) {
         <button className="profile__add-button add-button" type="button" aria-label="Добавить" onClick={onAddPlace}></button>
       </section>
       <section className="elements section content__section">
-        {cards.map((card) => (<Card card={card} key={card._id} {...props}/>))}
+        {cards.map((card, i) => (<Card card={card} key={cards[i]._id} {...props}/>))}
       </section>
     </main>
   );

@@ -52,7 +52,6 @@ function App() {
     Promise.all([api.getUserInfo(), api.getCardList()])
     .then(([user, cards]) => {
       setCurrentUser(user);
-      console.log(cards);
       setCards(cards);
     })
     .catch(e => console.log(e))
@@ -99,7 +98,6 @@ function App() {
 
   const handleCardLike = (card) => {
     const isLiked = card.likes.some((i) => i._id === currentUser._id);
-
     api
       .like(card, isLiked)
       .then((newCard) => {
