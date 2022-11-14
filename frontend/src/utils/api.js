@@ -114,6 +114,14 @@ class Api {
       });
       return this.getResponseData(res);
     };
+
+    this.logout = async () => {
+      const res = await fetch(`${baseUrl}/signout`, {
+        method: 'POST',
+        credentials: 'include',
+      });
+      return this.getResponseData(res);
+    }
   }
 }
 

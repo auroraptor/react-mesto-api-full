@@ -11,6 +11,7 @@ const { url, password } = require('./utils/regexps');
 const { errorHandler } = require('./middlewares/errorHandler');
 const { HTTP404Error } = require('./errors/HTTP404Error');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
+const { HttpStatusCode } = require('./utils/HttpStatusCode');
 
 const { PORT = 3000 } = process.env;
 const app = express();
@@ -72,6 +73,10 @@ app.post('/signup', celebrate({
     password: Joi.string().pattern(password).required().min(8),
   }),
 }), createUser);
+
+app.post('/signout', () => {
+  logNow('signOUt');
+});
 
 app.use('/', auth, router);
 

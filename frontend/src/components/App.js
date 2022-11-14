@@ -92,8 +92,13 @@ function App() {
   };
 
   const handleLogOut = () => {
-    setLoggedIn(false);
-    setCurrentUser({ name: "", about: "", avatar: "" });
+    api
+      .logout()
+      .then(() => {
+        setLoggedIn(false);
+        setCurrentUser({ name: "", about: "", avatar: "" });
+      })
+      .catch((err) => console.log(err));
   };
 
   const handleCardLike = (card) => {
