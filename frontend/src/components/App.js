@@ -61,7 +61,6 @@ function App() {
     api
       .getContent()
       .then((res) => {
-        console.log('res: ', res)
         setEmail(res.email);
         setLoggedIn(true);
       })
@@ -97,12 +96,13 @@ function App() {
   };
 
   const handleCardLike = (card) => {
-    const isLiked = card.likes.some((i) => i._id === currentUser._id);
+    const isLiked = card.likes.some((i) => i === currentUser._id);
+
     api
       .like(card, isLiked)
       .then((newCard) => {
         setCards((cards) =>
-          cards.map((c) => (c._id === card._id ? newCard : c))
+          cards.map((i) => (i._id === card._id ? newCard : i))
         );
       })
       .catch((err) => console.log(err));

@@ -7,7 +7,7 @@ function Card(props) {
   const currentUser = useContext(CurrentUserContext);
 
   const isOwner = card.owner === currentUser._id;
-  const isLiked = card.likes.some(i => i._id === currentUser._id); // сейчас isLiked лежит просто в жесткой переменной,а так быть не должно
+  const isLiked = card.likes.some(i => i === currentUser._id); // сейчас isLiked лежит просто в жесткой переменной,а так быть не должно
 
   function handleClick() {
   onCardClick(card);
