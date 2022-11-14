@@ -52,9 +52,10 @@ function App() {
     Promise.all([api.getUserInfo(), api.getCardList()])
     .then(([user, cards]) => {
       setCurrentUser(user);
-      setCards(cards);
+      setCards(cards.reverse());
     })
     .catch(e => console.log(e))
+
   }, [loggedIn]);
 
   useEffect(() => {
@@ -120,7 +121,7 @@ function App() {
 
   const handleConfirmationPopup = (card) => {
     setConnfirmPopupOpen(true);
-    setRemoveCard(card); //const card = card; // ?
+    setRemoveCard(card);
   };
 
   useEffect(() => {
@@ -155,7 +156,6 @@ function App() {
     setEditProfilePopupOpen(false);
     setEditAvatarPopupOpen(false);
     setAddPlacePopupOpen(false);
-    // setSelectedCard(null);
     setConnfirmPopupOpen(false);
     setImagePopupOpen(false);
   };
