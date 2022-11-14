@@ -49,24 +49,25 @@ function App() {
   useEffect(() => {
     if (!loggedIn) return;
 
-
     Promise.all([api.getUserInfo(), api.getCardList()])
     .then(([user, cards]) => {
       setCurrentUser(user);
-      setCards(cards);
+      console.log(cards.data);
+      setCards(cards.data);
     })
     .catch(e => console.log(e))
   }, [loggedIn]);
 
-  // useEffect(() => {
-  //   api
-  //     .getContent()
-  //     .then((res) => {
-  //       setEmail(res.data.email);
-  //       setLoggedIn(true);
-  //     })
-  //     .catch((err) => console.log(err));
-  // }, []);
+  useEffect(() => {
+    api
+      .getContent()
+      .then((res) => {
+        console.log('res: ', res)
+        setEmail(res.email);
+        setLoggedIn(true);
+      })
+      .catch((err) => console.log(err));
+  }, []);
 
   const handleLogin = (email, password) => {
     api
