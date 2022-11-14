@@ -81,6 +81,7 @@ function App() {
   };
 
   const handleRegister = (email, password) => {
+    // TODO добавить сюда button disable и сменить текст кнопки
     api
       .register(password, email)
       .then(() => setSuccess(true))
