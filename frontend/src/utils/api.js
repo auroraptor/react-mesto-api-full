@@ -38,7 +38,7 @@ class Api {
     };
 
     this.postNewCard = async (data) => {
-      const res = await fetch(`${baseUrl}cards`, {
+      const res = await fetch(`${baseUrl}/cards`, {
         method: 'POST',
         credentials: 'include',
         headers: {

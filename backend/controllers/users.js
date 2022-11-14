@@ -64,11 +64,11 @@ module.exports.getUserById = async (req, res, next) => {
 
 module.exports.updateUser = async (req, res, next) => {
   try {
-    await User.findByIdAndUpdate(req.user._id, req.body, {
+    const user = await User.findByIdAndUpdate(req.user._id, req.body, {
       new: true,
       runValidators: true,
     });
-    res.send({ ...req.body });
+    res.send(user);
   } catch (error) {
     next(error);
   }
@@ -77,11 +77,11 @@ module.exports.updateUser = async (req, res, next) => {
 module.exports.updateAvatar = async (req, res, next) => {
   try {
     const { _id } = req.user;
-    await User.findByIdAndUpdate(_id, req.body, {
+    const user = await User.findByIdAndUpdate(_id, req.body, {
       new: true,
       runValidators: true,
     });
-    res.status(HttpStatusCode.OK).send({ ...req.body });
+    res.send(user);
   } catch (error) {
     next(error);
   }
