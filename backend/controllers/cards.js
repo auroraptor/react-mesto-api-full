@@ -16,7 +16,7 @@ module.exports.createCard = async (req, res, next) => {
 module.exports.getCards = async (req, res, next) => {
   try {
     const cards = await Card.find({});
-    res.status(HttpStatusCode.OK).send({ data: cards });
+    res.status(HttpStatusCode.OK).send(cards);
   } catch (error) {
     next(error);
   }
