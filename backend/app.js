@@ -11,7 +11,6 @@ const { url, password } = require('./utils/regexps');
 const { errorHandler } = require('./middlewares/errorHandler');
 const { HTTP404Error } = require('./errors/HTTP404Error');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
-const { HttpStatusCode } = require('./utils/HttpStatusCode');
 
 const { PORT = 3000 } = process.env;
 const app = express();
@@ -26,32 +25,26 @@ mongoose.connect('mongodb://localhost:27017/mestodb', { autoIndex: true })
 
 app.use(requestLogger);
 
-// Массив доменов, с которых разрешены кросс-доменные запросы
 const allowedCors = [
   'http://localhost:3001',
   'http://localhost:3000',
 ];
 
 app.use((req, res, next) => {
-  const { origin } = req.headers; // Сохраняем источник запроса в переменную origin
-  const { method } = req; // Сохраняем тип запроса (HTTP-метод) в соответствующую переменную
+  const { origin } = req.headers;
+  const { method } = req;
 
   const DEFAULT_ALLOWED_METHODS = 'GET,HEAD,PUT,PATCH,POST,DELETE';
-  // сохраняем список заголовков исходного запроса
   const requestHeaders = req.headers['access-control-request-headers'];
-  // проверяем, что источник запроса есть среди разрешённых
+
   if (allowedCors.includes(origin)) {
-    // устанавливаем заголовок, который разрешает браузеру запросы с этого источника
     res.header('Access-Control-Allow-Origin', origin);
     res.header('Access-Control-Allow-Credentials', true);
   }
 
-  // Если это предварительный запрос, добавляем нужные заголовки
   if (method === 'OPTIONS') {
     res.header('Access-Control-Allow-Methods', DEFAULT_ALLOWED_METHODS);
-    // разрешаем кросс-доменные запросы с этими заголовками
     res.header('Access-Control-Allow-Headers', requestHeaders);
-    // завершаем обработку запроса и возвращаем результат клиенту
     return res.end();
   }
   return next();
@@ -74,8 +67,8 @@ app.post('/signup', celebrate({
   }),
 }), createUser);
 
-app.post('/signout', () => {
-  logNow('signOUt');
+app.post('/signout', (req, res) => {
+  res.clearCookie('jwt').send({ message: '🍪 cleared' }).end();
 });
 
 app.use('/', auth, router);

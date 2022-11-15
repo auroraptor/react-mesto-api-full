@@ -1,8 +1,9 @@
 import { Outlet, Navigate } from "react-router-dom";
 
-function ProtectedRoute({loggedIn}) {
+function ProtectedRoute({onLogin}) {
+  console.log('[AUTHENTICATION PROTECTION]: ', onLogin);
   return (
-    loggedIn ? <Outlet /> : <Navigate to="/signin"/>
+    onLogin ? <Outlet /> : <Navigate to="/signin"/>
   )
 }
 

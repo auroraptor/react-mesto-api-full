@@ -54,8 +54,7 @@ function App() {
       setCurrentUser(user);
       setCards(cards.reverse());
     })
-    .catch(e => console.log(e))
-
+    .catch((err) => console.log(err));
   }, [loggedIn]);
 
   useEffect(() => {
@@ -64,6 +63,7 @@ function App() {
       .then((res) => {
         setEmail(res.email);
         setLoggedIn(true);
+        navigate("/");
       })
       .catch((err) => console.log(err));
   }, []);
@@ -80,7 +80,6 @@ function App() {
   };
 
   const handleRegister = (email, password) => {
-    // TODO добавить сюда button disable и сменить текст кнопки
     api
       .register(password, email)
       .then(() => setSuccess(true))
@@ -167,7 +166,7 @@ function App() {
 
   return (
     <Routes>
-      <Route element={<ProtectedRoute loggedIn/>}>
+      <Route element={<ProtectedRoute onLogin={loggedIn}/>}>
         <Route
           path="/"
           element={
