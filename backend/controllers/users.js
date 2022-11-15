@@ -7,6 +7,8 @@ const { HTTP401Error } = require('../errors/HTTP401Error');
 const { HTTP409Error } = require('../errors/HTTP409Error');
 const { HTTP404Error } = require('../errors/HTTP404Error');
 
+const { NODE_ENV, JWT_SECRET } = process.env;
+
 module.exports.createUser = async (req, res, next) => {
   try {
     const hash = await bcrypt.hash(req.body.password, 17); // 𓃦 ⑰ ♡
@@ -99,7 +101,7 @@ module.exports.login = async (req, res, next) => {
       next(new HTTP401Error('Неправильные почта или пароль'));
       return;
     }
-    const token = jwt.sign({ _id: user._id }, '🔐', { expiresIn: '7d' });
+    const token = jwt.sign({ _id: user._id }, NODE_ENV === 'production' ? JWT_SECRET : '🔐', { expiresIn: '7d' });
     res.status(HttpStatusCode.OK).cookie('jwt', token, {
       maxAge: 3600000 * 24 * 7,
       httpOnly: true,
