@@ -5,7 +5,7 @@ const allowedCors = [
   'https://auro.nomoredomains.icu',
 ];
 
-module.export = (req, res, next) => {
+module.exports = (req, res, next) => {
   const { origin } = req.headers;
 
   const DEFAULT_ALLOWED_METHODS = 'GET,HEAD,PUT,PATCH,POST,DELETE';
