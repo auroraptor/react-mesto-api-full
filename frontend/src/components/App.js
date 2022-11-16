@@ -30,6 +30,7 @@ function App() {
   const [isInfoTooltipOpen, setInfoTooltipOpen] = useState(false);
   const [success, setSuccess] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleCardClick = (card) => {
@@ -80,6 +81,7 @@ function App() {
   };
 
   const handleRegister = (email, password) => {
+    setIsLoading(true);
     api
       .register(password, email)
       .then(() => setSuccess(true))
@@ -87,7 +89,10 @@ function App() {
         setSuccess(false);
         console.log("error", err);
       })
-      .finally(() => setInfoTooltipOpen(true));
+      .finally(() => {
+        setInfoTooltipOpen(true);
+        setIsLoading(false);
+      });
   };
 
   const handleLogOut = () => {
@@ -232,6 +237,7 @@ function App() {
             success={success}
             isOpen={isInfoTooltipOpen}
             onRegister={handleRegister}
+            isLoading={isLoading}
             closeInfoTooltip={setInfoTooltipOpen}
           />
         }

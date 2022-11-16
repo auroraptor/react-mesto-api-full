@@ -45,7 +45,7 @@ function Register(props) {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button type="submit" className="form__submit-button_theme_white">
+        <button type="submit" className="form__submit-button_theme_white" disabled= {props.isLoading}>
           Зарегестрироваться
         </button>
       </form>

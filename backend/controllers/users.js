@@ -11,7 +11,7 @@ const { NODE_ENV, JWT_SECRET } = process.env;
 
 module.exports.createUser = async (req, res, next) => {
   try {
-    const hash = await bcrypt.hash(req.body.password, 17); // 𓃦 ⑰ ♡
+    const hash = await bcrypt.hash(req.body.password, 10); // 𓃦 ⑰ ♡
     const user = await User.create({ ...req.body, password: hash });
     const {
       name, about, avatar, _id,
