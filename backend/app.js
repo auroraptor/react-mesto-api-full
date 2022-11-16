@@ -4,7 +4,6 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
-// const cors = require('cors');
 const { errors, celebrate, Joi } = require('celebrate');
 const router = require('./routes');
 const auth = require('./middlewares/auth');
@@ -17,7 +16,6 @@ const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 const { PORT = 3000 } = process.env;
 const app = express();
-// app.use(cors());
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -35,6 +33,7 @@ const allowedCors = [
   'https://auro.nomoredomains.icu',
   'https://api.auro.nomoredomains.icu',
   'https://api.auro.nomoredomains.icu/users/me',
+  'https://api.auro.nomoredomains.icu/signup',
 ];
 
 app.use((req, res, next) => {
