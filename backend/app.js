@@ -29,10 +29,8 @@ app.use(requestLogger);
 const allowedCors = [
   'http://localhost:3001',
   'http://localhost:3000',
+  'http://auro.nomoredomains.icu',
   'https://auro.nomoredomains.icu',
-  'https://api.auro.nomoredomains.icu',
-  'https://api.auro.nomoredomains.icu/users/me',
-  'https://api.auro.nomoredomains.icu/signup',
 ];
 
 app.use((req, res, next) => {
