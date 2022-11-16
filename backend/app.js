@@ -7,6 +7,7 @@ const cookieParser = require('cookie-parser');
 const { errors, celebrate, Joi } = require('celebrate');
 const router = require('./routes');
 const auth = require('./middlewares/auth');
+const cors = require('./middlewares/cors');
 const { login, createUser } = require('./controllers/users');
 const { logNow, logError } = require('./utils/log');
 const { url, password } = require('./utils/regexps');
@@ -19,38 +20,12 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
+app.use(requestLogger);
+app.use(cors);
 
 mongoose.connect('mongodb://localhost:27017/mestodb', { autoIndex: true })
   .then(() => logNow('Connected to the server'))
   .catch((err) => logError(err));
-
-app.use(requestLogger);
-
-const allowedCors = [
-  'http://localhost:3001',
-  'http://localhost:3000',
-  'http://auro.nomoredomains.icu',
-  'https://auro.nomoredomains.icu',
-];
-
-app.use((req, res, next) => {
-  const { origin } = req.headers;
-
-  const DEFAULT_ALLOWED_METHODS = 'GET,HEAD,PUT,PATCH,POST,DELETE';
-  const requestHeaders = req.headers['access-control-request-headers'];
-
-  if (allowedCors.includes(origin)) {
-    res.header('Access-Control-Allow-Origin', origin);
-    res.header('Access-Control-Allow-Credentials', true);
-  }
-
-  if (req.method === 'OPTIONS') {
-    res.header('Access-Control-Allow-Methods', DEFAULT_ALLOWED_METHODS);
-    res.header('Access-Control-Allow-Headers', requestHeaders);
-    return res.end();
-  }
-  return next();
-});
 
 const { PORT = 3000 } = process.env;
 
@@ -77,20 +52,15 @@ app.post('/signup', celebrate({
   }),
 }), createUser);
 
+app.use('/', auth, router);
 app.post('/signout', (req, res) => {
   res.clearCookie('jwt').send({ message: '🍪 cleared' }).end();
 });
-
-app.use('/', auth, router);
-
 app.use('*', (req, res, next) => {
   next(new HTTP404Error(`По адресу ${req.baseUrl} ничего не нашлось`));
 });
-
 app.use(errorLogger);
-
 app.use(errors());
-
 app.use(errorHandler);
 
 app.listen(PORT, () => {
