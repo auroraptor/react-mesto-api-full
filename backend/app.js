@@ -4,7 +4,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
-const cors = require('cors');
+// const cors = require('cors');
 const { errors, celebrate, Joi } = require('celebrate');
 const router = require('./routes');
 const auth = require('./middlewares/auth');
@@ -17,7 +17,7 @@ const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 const { PORT = 3000 } = process.env;
 const app = express();
-app.use(cors());
+// app.use(cors());
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -29,32 +29,32 @@ mongoose.connect('mongodb://localhost:27017/mestodb', { autoIndex: true })
 
 app.use(requestLogger);
 
-// const allowedCors = [
-//   'http://localhost:3001',
-//   'http://localhost:3000',
-//   'https://auro.nomoredomains.icu',
-//   'https://api.auro.nomoredomains.icu',
-//   'https://api.auro.nomoredomains.icu/users/me',
-// ];
+const allowedCors = [
+  'http://localhost:3001',
+  'http://localhost:3000',
+  'https://auro.nomoredomains.icu',
+  'https://api.auro.nomoredomains.icu',
+  'https://api.auro.nomoredomains.icu/users/me',
+];
 
-// app.use((req, res, next) => {
-//   const { origin } = req.headers;
+app.use((req, res, next) => {
+  const { origin } = req.headers;
 
-//   const DEFAULT_ALLOWED_METHODS = 'GET,HEAD,PUT,PATCH,POST,DELETE';
-//   const requestHeaders = req.headers['access-control-request-headers'];
+  const DEFAULT_ALLOWED_METHODS = 'GET,HEAD,PUT,PATCH,POST,DELETE';
+  const requestHeaders = req.headers['access-control-request-headers'];
 
-//   if (allowedCors.includes(origin)) {
-//     res.header('Access-Control-Allow-Origin', origin);
-//     res.header('Access-Control-Allow-Credentials', true);
-//   }
+  if (allowedCors.includes(origin)) {
+    res.header('Access-Control-Allow-Origin', origin);
+    res.header('Access-Control-Allow-Credentials', true);
+  }
 
-//   if (req.method === 'OPTIONS') {
-//     res.header('Access-Control-Allow-Methods', DEFAULT_ALLOWED_METHODS);
-//     res.header('Access-Control-Allow-Headers', requestHeaders);
-//     return res.end();
-//   }
-//   return next();
-// });
+  if (req.method === 'OPTIONS') {
+    res.header('Access-Control-Allow-Methods', DEFAULT_ALLOWED_METHODS);
+    res.header('Access-Control-Allow-Headers', requestHeaders);
+    return res.end();
+  }
+  return next();
+});
 
 app.post('/signin', celebrate({
   body: Joi.object().keys({
@@ -90,5 +90,5 @@ app.use(errors());
 app.use(errorHandler);
 
 app.listen(PORT, () => {
-  logNow(`CORS-enabled web server listening on port ${PORT}`);
+  logNow(`App server listening on port ${PORT}`);
 });
