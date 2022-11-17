@@ -27,11 +27,12 @@ mongoose.connect('mongodb://localhost:27017/mestodb', { autoIndex: true })
   .catch((err) => logError(err));
 
 const { PORT = 3000 } = process.env;
+
 const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100, // Limit each IP to 100 requests per `window` (here, per 15 minutes)
-  standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
-  legacyHeaders: false, // Disable the `X-RateLimit-*` headers
+  windowMs: 15 * 60 * 1000,
+  max: 100,
+  standardHeaders: true,
+  legacyHeaders: false,
 });
 
 app.use(limiter);
