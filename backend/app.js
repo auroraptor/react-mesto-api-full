@@ -10,7 +10,7 @@ const auth = require('./middlewares/auth');
 const cors = require('./middlewares/cors');
 const { login, createUser } = require('./controllers/users');
 const { logNow, logError } = require('./utils/log');
-const { url, password } = require('./utils/regexps');
+const { url } = require('./utils/regexps');
 const { errorHandler } = require('./middlewares/errorHandler');
 const { HTTP404Error } = require('./errors/HTTP404Error');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
@@ -38,7 +38,7 @@ app.get('/crash-test', () => {
 app.post('/signin', celebrate({
   body: Joi.object().keys({
     email: Joi.string().required().email(),
-    password: Joi.string().pattern(password).required().min(8),
+    password: Joi.string().required().min(8),
   }),
 }), login);
 
@@ -48,7 +48,7 @@ app.post('/signup', celebrate({
     about: Joi.string().min(2).max(30),
     avatar: Joi.string().pattern(url),
     email: Joi.string().required().email(),
-    password: Joi.string().pattern(password).required().min(8),
+    password: Joi.string().required().min(8),
   }),
 }), createUser);
 
