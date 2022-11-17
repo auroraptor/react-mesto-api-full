@@ -5,15 +5,11 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const { errors } = require('celebrate');
-const router = require('./routes');
-const auth = require('./middlewares/auth');
+const routes = require('./routes');
 const cors = require('./middlewares/cors');
-const { login, createUser } = require('./controllers/users');
 const { logNow, logError } = require('./utils/log');
-const { errorHandler } = require('./middlewares/errorHandler');
-const { HTTP404Error } = require('./errors/HTTP404Error');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
-const { validateUserBody, validateAuth } = require('./middlewares/validate');
+const { errorHandler } = require('./middlewares/errorHandler');
 
 const app = express();
 
@@ -35,16 +31,8 @@ app.get('/crash-test', () => {
   }, 0);
 });
 
-app.post('/signup', validateUserBody, createUser);
-app.post('/signin', validateAuth, login);
+app.use(routes);
 
-app.use('/', auth, router);
-app.post('/signout', (req, res) => {
-  res.clearCookie('jwt').send({ message: '🍪 cleared' }).end();
-});
-app.use('*', (req, res, next) => {
-  next(new HTTP404Error(`По адресу ${req.baseUrl} ничего не нашлось`));
-});
 app.use(errorLogger);
 app.use(errors());
 app.use(errorHandler);
