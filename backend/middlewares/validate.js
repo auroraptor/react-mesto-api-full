@@ -7,14 +7,14 @@ module.exports.validateUserBody = celebrate({
     about: Joi.string().min(2).max(30),
     avatar: Joi.string().pattern(url),
     email: Joi.string().required().email(),
-    password: Joi.string().required().min(8),
+    password: Joi.string().required(),
   }),
 });
 
 module.exports.validateAuth = celebrate({
   body: Joi.object().keys({
     email: Joi.string().required().email(),
-    password: Joi.string().required().min(8),
+    password: Joi.string().required(),
   }),
 });
 
