@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Header from "./Header";
 import Login from "./Login";
+import LoadingSpinner from "./LoadingSpinner/LoadingSpinner";
 import Input from "./Input";
 import InfoTooltip from "./InfoTooltip";
 
@@ -19,6 +20,8 @@ function Register(props) {
   return (
     <>
       <Header link="/signin" text="Войти" elem={<Login />} />
+      <LoadingSpinner className={`spinner-container ${props.isLoading && `visible`}`} />
+
       <form
         className={`form_theme_white register-form`}
         name="register"

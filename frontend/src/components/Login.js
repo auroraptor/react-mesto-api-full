@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Header from "./Header";
+import LoadingSpinner from "./LoadingSpinner/LoadingSpinner";
 import Input from "./Input";
 
 function Login(props) {
@@ -16,6 +17,7 @@ function Login(props) {
   return (
     <div>
       <Header link="/signup" text="Регистрация" />
+      <LoadingSpinner className={`spinner-container ${props.isLoading && `visible`}`} />
       <form
         className={`form_theme_white login-form`}
         name="login"
