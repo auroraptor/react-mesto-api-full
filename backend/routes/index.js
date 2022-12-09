@@ -12,7 +12,7 @@ router.use('/', auth);
 router.use('/users', userRouter);
 router.use('/cards', cardRouter);
 router.post('/signout', (req, res) => {
-  res.clearCookie('jwt').send({ message: '🍪 cleared' }).end();
+  res.clearCookie('jwt').end();
 });
 router.use((req, res, next) => {
   next(new HTTP404Error(`По адресу ${req.baseUrl} ничего не нашлось`));
