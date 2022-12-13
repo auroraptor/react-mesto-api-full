@@ -35,10 +35,14 @@ const userSchema = new mongoose.Schema({
       message: 'Is not a valid email address',
     },
   },
+  role: {
+    type: mongoose.Schema.Types.String,
+    enum: ['admin', 'user'],
+    default: 'user',
+  },
   password: {
     type: String,
     require: true,
-    minlength: 8,
     select: false,
   },
 });

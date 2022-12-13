@@ -35,5 +35,5 @@ app.use(errors());
 app.use(errorHandler);
 
 app.listen(PORT, () => {
-  logNow(`App server listening on port ${PORT}`);
+  logNow(`CORS-enabled App listening on port ${PORT}`);
 });

@@ -1,6 +1,8 @@
 const allowedCors = [
   'http://localhost:3001',
   'http://localhost:3000',
+
+  // вот сюда надо добавить адрес фронта
   'http://auro.nomoredomains.icu',
   'https://auro.nomoredomains.icu',
 ];

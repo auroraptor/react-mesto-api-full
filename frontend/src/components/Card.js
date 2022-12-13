@@ -1,16 +1,16 @@
-import { useContext } from 'react';
-import '../index.css';
-import { CurrentUserContext } from '../contexts/CurrentUserContext';
+import { useContext } from "react";
+import "../index.css";
+import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
 function Card(props) {
-  const {card, onCardClick, onCardLike, onCardDelete} = props;
+  const { card, onCardClick, onCardLike, onCardDelete } = props;
   const currentUser = useContext(CurrentUserContext);
 
   const isOwner = card.owner === currentUser._id;
-  const isLiked = card.likes.some(i => i === currentUser._id); // сейчас isLiked лежит просто в жесткой переменной,а так быть не должно
+  const isLiked = card.likes.some((i) => i === currentUser._id);
 
   function handleClick() {
-  onCardClick(card);
+    onCardClick(card);
   }
 
   function handleLikeClick() {
@@ -22,16 +22,29 @@ function Card(props) {
   }
 
   return (
-  <article className="element">
-   {isOwner && (<button className="element__delete-button" onClick={handleDeleteClick}></button>)}
-   <img src={card.link} alt={card.name} className="element__photo" onClick={handleClick}/>
-   <div className="element__container">
-     <h2 className="element__title">{card.name}</h2>
-     <button className={`like-button ${isLiked && 'like-button_active'}`} onClick={handleLikeClick}></button>
-     <p className="element__likes">{card.likes.length}</p>
-   </div>
-  </article>
-  )
+    <article className="element">
+      {isOwner && (
+        <button
+          className="element__delete-button"
+          onClick={handleDeleteClick}
+        ></button>
+      )}
+      <img
+        src={card.link}
+        alt={card.name}
+        className="element__photo"
+        onClick={handleClick}
+      />
+      <div className="element__container">
+        <h2 className="element__title">{card.name}</h2>
+        <button
+          className={`like-button ${isLiked && "like-button_active"}`}
+          onClick={handleLikeClick}
+        ></button>
+        <p className="element__likes">{card.likes.length}</p>
+      </div>
+    </article>
+  );
 }
 
 export default Card;
