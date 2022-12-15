@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect} from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import Login from "./Login";
@@ -146,6 +145,7 @@ function App() {
 
   useEffect(() => {
     if (!isInfoTooltipOpen && success) navigate("/signin");
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isInfoTooltipOpen]);
 
   const handleUpdateUser = (data) => {
@@ -275,7 +275,6 @@ function App() {
       />
       <Route element={<Login onLogin={handleLogin} isLoading={isLoading} />} path="/signin" />
       <Route element={<NotFound />} path="/*" />
-      {/* TODO */}
     </Routes>
   );
 }
