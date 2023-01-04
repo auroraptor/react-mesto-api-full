@@ -26,7 +26,7 @@ mongoose.connect('mongodb://localhost:27017/mestodb', { autoIndex: true })
   .then(() => logNow('Connected to the server'))
   .catch((err) => logError(err));
 
-const { PORT = 3000 } = process.env;
+const { PORT = 3030 } = process.env;
 
 app.use(limiter);
 app.use(routes);
