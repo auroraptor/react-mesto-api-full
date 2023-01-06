@@ -20,7 +20,7 @@ function App() {
   const [isAddPlacePopupOpen, setAddPlacePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setEditAvatarPopupOpen] = useState(false);
   const [isConfirmPopupOpen, setConnfirmPopupOpen] = useState(false);
-  const [isImagePopupOpen, setImagePopupOpen] = useState(false) // про попап с картинкой что-то чтобы избегать крестика fix animation popupclosed
+  const [isImagePopupOpen, setImagePopupOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState(null);
   const [removeCard, setRemoveCard] = useState(null);
   const [currentUser, setCurrentUser] = useState({ name: "", about: "", avatar: "" });
@@ -145,7 +145,6 @@ function App() {
 
   useEffect(() => {
     if (!isInfoTooltipOpen && success) navigate("/signin");
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isInfoTooltipOpen]);
 
   const handleUpdateUser = (data) => {
