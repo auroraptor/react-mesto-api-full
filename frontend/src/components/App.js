@@ -32,20 +32,6 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
-  const handleCardClick = (card) => {
-    setImagePopupOpen(true);
-    setSelectedCard(card);
-  };
-  const handleEditAvatarClick = () => {
-    setEditAvatarPopupOpen(true);
-  };
-  const handleEditProfileClick = () => {
-    setEditProfilePopupOpen(true);
-  };
-  const handleAddPlaceClick = () => {
-    setAddPlacePopupOpen(true);
-  };
-
   useEffect(() => {
     if (!loggedIn) return;
 
@@ -68,18 +54,22 @@ function App() {
       .catch((err) => console.log(err));
   }, []);
 
-  const handleLogin = (email, password) => {
-    setIsLoading(true);
+  useEffect(() => {
+    if (!isInfoTooltipOpen && success) navigate("/signin");
+  }, [isInfoTooltipOpen]);
 
-    api
-      .login(password, email)
-      .then(() => {
-        setEmail(email);
-        setLoggedIn(true);
-        navigate("/");
-      })
-      .catch((err) => console.log(err))
-      .finally(() => setIsLoading(false));
+  const handleCardClick = (card) => {
+    setImagePopupOpen(true);
+    setSelectedCard(card);
+  };
+  const handleEditAvatarClick = () => {
+    setEditAvatarPopupOpen(true);
+  };
+  const handleEditProfileClick = () => {
+    setEditProfilePopupOpen(true);
+  };
+  const handleAddPlaceClick = () => {
+    setAddPlacePopupOpen(true);
   };
 
   const handleRegister = (email, password) => {
@@ -95,6 +85,20 @@ function App() {
         closeAllPopups();
         setIsLoading(false);
       });
+  };
+
+  const handleLogin = (email, password) => {
+    setIsLoading(true);
+
+    api
+      .login(password, email)
+      .then(() => {
+        setEmail(email);
+        setLoggedIn(true);
+        navigate("/");
+      })
+      .catch((err) => console.log(err))
+      .finally(() => setIsLoading(false));
   };
 
   const handleLogOut = () => {
@@ -142,10 +146,6 @@ function App() {
     setConnfirmPopupOpen(true);
     setRemoveCard(card);
   };
-
-  useEffect(() => {
-    if (!isInfoTooltipOpen && success) navigate("/signin");
-  }, [isInfoTooltipOpen]);
 
   const handleUpdateUser = (data) => {
     setIsLoading(true);
