@@ -21,7 +21,7 @@ module.exports.createUser = async (req, res, next) => {
     });
   } catch (error) {
     if (error.name === 'MongoServerError' || error.message.includes('11000')) {
-      next(new HTTP409Error(`${req.body.email} уже зарегестрирован`));
+      next(new HTTP409Error(`${req.body.email} уже зарегистрирован`));
       return;
     }
     next(error);
